@@ -1,0 +1,6 @@
+# Keep LF in repo for Linux/Docker/ROS2 projects
+* text=auto eol=lf
+
+# Windows-only scripts (if added later)
+*.bat text eol=crlf
+*.ps1 text eol=crlf
