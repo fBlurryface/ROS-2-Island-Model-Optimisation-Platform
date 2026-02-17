@@ -24,3 +24,9 @@ Thumbs.db
 # Misc
 *.bak
 *.tmp
+# runtime outputs
+evo_logs/
+out/
+# temp / local packaging
+_p0tmp/
+*.zip

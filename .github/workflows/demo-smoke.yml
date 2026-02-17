@@ -1,0 +1,69 @@
+name: demo-smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      config:
+        description: "demo config file under configs/"
+        required: true
+        default: "demo_small_full.json"
+        type: choice
+        options:
+          - demo_small_full.json
+          - demo_small_ring.json
+          - demo_small_hetero.json
+  push:
+    branches: [ "main" ]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: |
+          set -euxo pipefail
+          docker build -t island-evo:ci .
+
+      - name: Run demo (container) and write outputs to ./out
+        run: |
+          set -euxo pipefail
+          mkdir -p out/evo_logs
+
+          CFG="${{ github.event.inputs.config }}"
+          if [ -z "$CFG" ]; then CFG="demo_small_full.json"; fi
+          echo "Using config: $CFG"
+
+          docker run --rm \
+            -v "$PWD/out:/out" \
+            -v "$PWD/out/evo_logs:/root/ws/evo_logs" \
+            -v "$PWD/configs:/configs:ro" \
+            -w /root/ws \
+            island-evo:ci \
+            bash -lc 'source /opt/ros/jazzy/setup.bash && source /root/ws/install/setup.bash && timeout 60s ros2 launch island_evo_core island_system.launch.py system_config:="$(cat /configs/'"$CFG"')" > /out/launch.log 2>&1 || true'
+
+          test -n "$(find out/evo_logs -name '*.csv' -print -quit)"
+
+      - name: Install matplotlib (runner)
+        run: |
+          set -euxo pipefail
+          sudo apt-get update
+          sudo apt-get install -y python3-matplotlib
+
+      - name: Merge plot (runner)
+        run: |
+          set -euxo pipefail
+          RUN_DIR="$(ls -dt out/evo_logs/run_* 2>/dev/null | head -n 1 || true)"
+          echo "Latest run dir: $RUN_DIR"
+          test -n "$RUN_DIR"
+          python3 tools/merge_plot.py --run-dir "$RUN_DIR" --out out/convergence.png --ylog
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-smoke-evidence
+          path: out/*

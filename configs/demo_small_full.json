@@ -1,0 +1,14 @@
+{
+  "num_islands": 6,
+  "topology": "FULL",
+  "gene_dim": 30,
+  "target_func": "Rastrigin",
+  "algo_allocation": "GA_ALL",
+  "common_params": {
+    "max_generations": 120,
+    "timer_period_ms": 1,
+    "pop_size": 10,
+    "migration_interval": 5,
+    "enable_csv_log": true
+  }
+}
