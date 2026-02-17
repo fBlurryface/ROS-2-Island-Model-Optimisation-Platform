@@ -44,7 +44,7 @@ jobs:
             -v "$PWD/configs:/configs:ro" \
             -w /root/ws \
             island-evo:ci \
-            bash -lc 'source /opt/ros/jazzy/setup.bash && source /root/ws/install/setup.bash && timeout 60s ros2 launch island_evo_core island_system.launch.py system_config:="$(cat /configs/'"$CFG"')" > /out/launch.log 2>&1 || true'
+            bash -lc 'source /opt/ros/jazzy/setup.bash && source /root/ws/install/setup.bash && timeout 12s ros2 launch island_evo_core island_system.launch.py system_config:="$(cat /configs/'"$CFG"')" > /out/launch.log 2>&1 || true'
 
           test -n "$(find out/evo_logs -name '*.csv' -print -quit)"
 
