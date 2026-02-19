@@ -3,12 +3,29 @@
 ![docker-build](https://github.com/fBlurryface/ROS-2-Island-Model-Optimisation-Platform/actions/workflows/docker-build.yml/badge.svg)
 ![demo-smoke](https://github.com/fBlurryface/ROS-2-Island-Model-Optimisation-Platform/actions/workflows/demo-smoke.yml/badge.svg)
 
-A synchronous **island-model optimisation platform** in ROS 2 (Jazzy).
+## What is this?
 
-- **Topology:** FULL / RING
-- **Scales to N islands:** each island is a node
-- **Algorithms:** GA / PSO / DE (supports heterogeneous allocation)
-- **Evidence-first:** per-generation convergence is logged to CSV (per island) for reproducible experiments
+A **ROS 2 (Jazzy)** workspace for running **synchronous island-model optimisation experiments** as a lightweight, ROS-native “simulation harness”. Each island runs as a ROS 2 node (C++/rclcpp), exchanges migrants via ROS topics, synchronises at migration boundaries, and can log per-generation convergence (CSV) for quick comparison and repeatability. It is built to help engineers and researchers **validate early-stage island-model designs or hypotheses fast** (e.g., “does this topology help?”, “does heterogeneous algorithm mix converge faster?”, “how sensitive is performance to migration frequency?”) before investing in heavier integration or expensive experiments.
+
+**Built with:** ROS 2 Jazzy · C++ (core node + algorithms) · Python (monitor/plot utilities) · Docker · GitHub Actions  
+**Target users:** 
+
+## Extensibility (the core design)
+
+The platform is designed so that the main experimental dimensions are *meant to grow*: you can scale the **number of islands (N)** without changing the core logic, and extend the **communication topology types**, **algorithm types**, and **benchmark function types** by adding new entries in the corresponding modules following the existing structure (e.g., adding tree/star graphs, adding other population-based heuristics, adding new objective functions such as double-funnel Rastrigin). In addition, the system exposes the knobs that actually define an experiment: **migration hyperparameters** (e.g., migration interval/frequency and related settings), **algorithm hyperparameters** (GA/DE/PSO-specific controls), and **benchmark difficulty parameters** (function-specific parameters and typical problem settings like dimension/bounds), so you can do controlled “what-if” tests rather than one-off runs.
+
+## Built-in algorithms (GA / DE / PSO)
+
+Below are **conceptual visualisations** (not runtime output) to convey the characteristic “motion” you typically see from each algorithm—useful when reasoning about heterogeneous islands.
+
+| GA | DE | PSO |
+|---|---|---|
+| ![](assets/gifs/ga_3d.gif) | ![](assets/gifs/de_3d.gif) | ![](assets/gifs/pso_3d.gif) |
+
+- **GA:** looks like *discrete reshuffling* — populations jump as selection/crossover recombine building blocks, with mutation injecting novelty.
+- **DE:** looks like *vector pulling* — individuals are nudged by difference vectors, often stretching and dragging the population toward promising regions.
+- **PSO:** looks like *swarm flow* — particles stream and cluster around attractors (personal/global best), typically forming smooth trajectories.
+
 
 ---
 
@@ -38,17 +55,6 @@ Artifact includes:
 
 ### RING topology (30 islands, GA)
 ![ring](assets/results/Figure_2.png)
-
----
-
-## Algorithm “character” (concept visualisation)
-
-These GIFs are **conceptual visualisations** of algorithm behaviour (not generated from this platform’s runtime data).
-They are included to highlight why heterogeneous island-model experiments are interesting.
-
-| GA | PSO | DE |
-|---|---|---|
-| ![](assets/gifs/ga_3d.gif) | ![](assets/gifs/pso_3d.gif) | ![](assets/gifs/de_3d.gif) |
 
 ---
 
