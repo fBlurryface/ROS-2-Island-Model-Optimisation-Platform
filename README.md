@@ -9,14 +9,14 @@ A **ROS 2 (Jazzy)** workspace for running **island-model optimisation experiment
  
 ## Key features
 
-This platform is designed to make island-model experiments easy to scale and extend:
+This platform is built to make island-model experiments easy to vary and compare:
 
-- **Scale the system size:** run **N islands** as independent ROS 2 nodes.
-- **Swap communication topologies:** choose how islands connect (**FULL / RING** for now), and add new graph types later.
-- **Swap optimisation algorithms:** use different optimisers per island (**GA / DE / PSO** currently) and extend the set over time.
-- **Swap benchmark functions:** test against different objectives (**Rastrigin / Michalewicz / Sphere** currently), with more functions easy to register.
-- **Tune experiment knobs:** control migration cadence, algorithm hyperparameters, and benchmark difficulty settings.
-- **Keep evidence by default:** log per-generation convergence to CSV for repeatable comparisons and CI artifacts.
+- **Scale to N islands** (each island is an independent ROS 2 node)
+- **Change communication topology** (currently **FULL / RING**, easy to extend)
+- **Change optimisation algorithm** (currently **GA / DE / PSO**, easy to extend)
+- **Change benchmark function** (currently **Rastrigin / Michalewicz / Sphere**, easy to extend)
+- **Tune experiment settings** (migration cadence, algorithm hyperparameters, benchmark difficulty)
+- **Log convergence to CSV** for repeatable comparisons and CI evidence
 
 ## Built-in algorithms (GA / DE / PSO)
 
