@@ -5,14 +5,18 @@
 
 ## What is this?
 
-## What is this?
-
 A **ROS 2 (Jazzy)** workspace for running **island-model optimisation experiments**, implemented mainly in **C++ (rclcpp)** with a few **Python** utilities, and packaged with **Docker** for repeatable runs. It’s meant for engineers and researchers who want to **test island-model designs and assumptions early**—before a full runnable system (or simulator/robot integration) is ready.
  
+## Key features
 
-## Extensibility (the core design)
+This platform is designed to make island-model experiments easy to scale and extend:
 
-The platform is designed so that the main experimental dimensions are *meant to grow*: you can scale the **number of islands (N)** without changing the core logic, and extend the **communication topology types**, **algorithm types**, and **benchmark function types** by adding new entries in the corresponding modules following the existing structure (e.g., adding tree/star graphs, adding other population-based heuristics, adding new objective functions such as double-funnel Rastrigin). In addition, the system exposes the knobs that actually define an experiment: **migration hyperparameters** (e.g., migration interval/frequency and related settings), **algorithm hyperparameters** (GA/DE/PSO-specific controls), and **benchmark difficulty parameters** (function-specific parameters and typical problem settings like dimension/bounds), so you can do controlled “what-if” tests rather than one-off runs.
+- **Scale the system size:** run **N islands** as independent ROS 2 nodes.
+- **Swap communication topologies:** choose how islands connect (**FULL / RING** for now), and add new graph types later.
+- **Swap optimisation algorithms:** use different optimisers per island (**GA / DE / PSO** currently) and extend the set over time.
+- **Swap benchmark functions:** test against different objectives (**Rastrigin / Michalewicz / Sphere** currently), with more functions easy to register.
+- **Tune experiment knobs:** control migration cadence, algorithm hyperparameters, and benchmark difficulty settings.
+- **Keep evidence by default:** log per-generation convergence to CSV for repeatable comparisons and CI artifacts.
 
 ## Built-in algorithms (GA / DE / PSO)
 
