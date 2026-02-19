@@ -5,10 +5,10 @@
 
 ## What is this?
 
-A **ROS 2 (Jazzy)** workspace for running **synchronous island-model optimisation experiments** as a lightweight, ROS-native “simulation harness”. Each island runs as a ROS 2 node (C++/rclcpp), exchanges migrants via ROS topics, synchronises at migration boundaries, and can log per-generation convergence (CSV) for quick comparison and repeatability. It is built to help engineers and researchers **validate early-stage island-model designs or hypotheses fast** (e.g., “does this topology help?”, “does heterogeneous algorithm mix converge faster?”, “how sensitive is performance to migration frequency?”) before investing in heavier integration or expensive experiments.
+## What is this?
 
-**Built with:** ROS 2 Jazzy · C++ (core node + algorithms) · Python (monitor/plot utilities) · Docker · GitHub Actions  
-**Target users:** 
+A **ROS 2 (Jazzy)** workspace for running **island-model optimisation experiments**, implemented mainly in **C++ (rclcpp)** with a few **Python** utilities, and packaged with **Docker** for repeatable runs. It’s meant for engineers and researchers who want to **test island-model designs and assumptions early**—before a full runnable system (or simulator/robot integration) is ready.
+ 
 
 ## Extensibility (the core design)
 
