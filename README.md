@@ -52,8 +52,6 @@ Artifact includes:
 
 ## Results (real runs)
 
-> If the captions are swapped, just swap the two headings below.
-
 ### FULL topology (30 islands, GA)
 ![full](assets/results/Figure_1.png)
 
