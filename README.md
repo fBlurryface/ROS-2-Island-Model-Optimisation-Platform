@@ -52,11 +52,18 @@ Artifact includes:
 
 ## Results (real runs)
 
-### FULL topology (30 islands, GA)
-![full](assets/results/Figure_1.png)
-
-### RING topology (30 islands, GA)
-![ring](assets/results/Figure_2.png)
+<table width="100%">
+  <tr>
+    <td align="center" valign="top">
+      <strong>FULL topology (30 islands, GA)</strong><br>
+      <img src="assets/results/Figure_1.png" alt="FULL topology result" width="98%">
+    </td>
+    <td align="center" valign="top">
+      <strong>RING topology (30 islands, GA)</strong><br>
+      <img src="assets/results/Figure_2.png" alt="RING topology result" width="98%">
+    </td>
+  </tr>
+</table>
 
 ---
 
