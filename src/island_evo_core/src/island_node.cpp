@@ -100,7 +100,10 @@ void IslandNode::state_machine_callback() {
                 // 这一步会强制把最后一段数据（比如最后 50 行）刷入硬盘，然后安全关闭
                 csv_out_.close(); 
             }
-            RCLCPP_INFO(this->get_logger(), "🏁 %s Reached target. Finished.", island_id_.c_str());
+            RCLCPP_INFO(this->get_logger(),
+            "🏁 %s Reached max_generations=%d. Finished.",
+            island_id_.c_str(),
+            max_generations_);
             return;
         }
 
